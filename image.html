@@ -10,20 +10,6 @@
 		$(document).ready(function(){
 		 	var w = window.innerWidth
 		 	var h = window.innerHeight
-				$(document).bind('touchmove', function (e) {
-
-				       e.preventDefault();
-				        var y1 = e.originalEvent.touches ?  e.originalEvent.touches[0].pageY : e.pageY;
-      					var x1 = e.originalEvent.touches ?  e.originalEvent.touches[0].pageX : e.pageX;
-				        var y2 = e.originalEvent.touches ?  e.originalEvent.touches[1].pageY : e.pageY;
-      					var x2 = e.originalEvent.touches ?  e.originalEvent.touches[1].pageX : e.pageX;
-						var dist = Math.sqrt( Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2) );
-						var midX = x2 + (x1-x2)/2
-						var midY = y2 + (y1-y2)/2
-						console.log(dist)
-						$('.follower').css({'transform':' translate('+midX+'px, '+midY+'px) scale('+dist/100+')'})
-						console.log(dist/100)
-				 });
  		});
 	</script>
 	<style type="text/css">
@@ -38,16 +24,28 @@
 		}
 		.follower{
 			background-color: black;
-			width: 100px;
+			width: 200vw;
 			height: 100px;
 			position: fixed;
-			top: -50px;
-			left: -50px;
-
+			top: calc(50% - 50px);
+			left: -50vw;
+		}
+		img{
+			position: absolute;
+			width: 100vw;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
 		}
 	</style>
 </head>
 <body>
-	<div class="follower"></div>
+	<img src="imageframe/1.png"  class="img_1">
+	<img src="imageframe/2.png"  class="img_2">
+	<img src="imageframe/3.png"  class="img_3">
+	<img src="imageframe/4.png"  class="img_4">
+	<img src="imageframe/5.png"  class="img_5">
+	<img src="imageframe/6.png"  class="img_6">
+	<img src="imageframe/7.png"  class="img_7">
 </body>
 </html>
