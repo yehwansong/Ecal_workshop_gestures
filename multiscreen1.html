@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
+      <script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				$(document).bind('touchmove mousemove', function (e) {
+
+				       e.preventDefault();
+				        var currentY = e.originalEvent.touches ?  e.originalEvent.touches[0].pageY : e.pageY;
+      					var currentX = e.originalEvent.touches ?  e.originalEvent.touches[0].pageX : e.pageX;
+
+				     
+				     
+				 });
+ 		});
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0x
+		}
+		.follower{
+			background-color: black;
+			width: 100px;
+			height: 100px;
+			position: fixed;
+		}
+	</style>
+</head>
+<body>
+	<div class="follower"></div>
+</body>
+</html>

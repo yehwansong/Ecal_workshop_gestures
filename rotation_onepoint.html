@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<script type="text/javascript">
+		$(document).ready(function(){
+		 	var w = window.innerWidth
+		 	var h = window.innerHeight
+				$(document).bind('touchmove mousemove', function (e) {
+
+				       e.preventDefault();
+				        var currentY = e.originalEvent.touches ?  e.originalEvent.touches[0].pageY : e.pageY;
+      					var currentX = e.originalEvent.touches ?  e.originalEvent.touches[0].pageX : e.pageX;
+
+				     $('.follower').css({'transform':'rotate('+angle(w/2, h/2, currentX, currentY)+'deg)'});
+				     console.log(angle(w/2, h/2, currentX, currentY)%360)
+				     
+
+				 });
+				    function angle(x1, y1, x2, y2) {
+						return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI + 3600;
+					}
+ 		});
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0
+		}
+		body,html{
+			width: 100vw;
+			height: 100%;
+		}
+		.follower{
+			background-color: black;
+			width: 200vw;
+			height: 100px;
+			position: fixed;
+			top: calc(50% - 50px);
+			left: -50vw;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="follower"></div>
+</body>
+</html>

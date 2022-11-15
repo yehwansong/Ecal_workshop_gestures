@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var pre_currentX = 0
+			var pre_currentY = 0
+				$(document).bind('touchmove mousemove', function (e) {
+
+				       e.preventDefault();
+
+				        var currentY = e.originalEvent.touches ?  e.originalEvent.touches[0].pageY : e.pageY;
+      					var currentX = e.originalEvent.touches ?  e.originalEvent.touches[0].pageX : e.pageX;
+						if(get_dis(currentX, pre_currentX, currentY, pre_currentY)>5){
+							if(Math.abs(currentX - pre_currentX)>Math.abs(currentY -pre_currentY)){
+								console.log('leftright')
+							}else{
+								console.log('topbottom')
+							}
+						}else{
+							console.log('notmove')
+
+						}
+				     $('.follower').css({
+				         top: currentY - 50,
+				         left: currentX - 50
+				     });
+				     pre_currentY = currentY
+				     pre_currentX = currentX
+				     
+				 });
+ 		});
+
+
+        function get_dis(x1, x2, y1, y2){
+            var a = x1 - x2;
+            var b = y1 - y2;
+
+            return Math.sqrt( a*a + b*b );
+        }
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0x
+		}
+		.follower{
+			background-color: black;
+			width: 100px;
+			height: 100px;
+			position: fixed;
+			transition: 1s ease-out
+
+		}
+	</style>
+</head>
+<body>
+	<div class="follower"></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<script type="text/javascript">
+		$(document).ready(function(){
+				$(document).bind('touchmove mousemove', function (e) {
+
+				       e.preventDefault();
+				        var currentY = e.originalEvent.touches ?  e.originalEvent.touches[0].pageY : e.pageY;
+      					var currentX = e.originalEvent.touches ?  e.originalEvent.touches[0].pageX : e.pageX;
+
+				     $('.follower').css({
+				         top: currentY - 50,
+				         left: currentX - 50
+				     });
+				     console.log('top:'+currentY)
+				     console.log('left:'+currentX)
+				     
+				     
+				 });
+ 		});
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0x
+		}
+		.follower{
+			background-color: black;
+			width: 100px;
+			height: 100px;
+			position: fixed;
+			transition: 1s ease-out
+
+		}
+	</style>
+</head>
+<body>
+	<div class="follower"></div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+      <meta name="HandheldFriendly" content="true" />
+	<script type="text/javascript">
+		$(document).ready(function(){
+		 	// var w = window.innerWidth
+		 	// var h = window.innerHeight
+					(async () => {
+						let volumeCallback = null;
+						let volumeInterval = null;
+						// Initialize
+						try {
+						const audioStream = await navigator.mediaDevices.getUserMedia({
+						  audio: {
+						    echoCancellation: true
+						  }
+						});
+						const audioContext = new AudioContext();
+						const audioSource = audioContext.createMediaStreamSource(audioStream);
+						const analyser = audioContext.createAnalyser();
+						analyser.fftSize = 512;
+						analyser.minDecibels = -127;
+						analyser.maxDecibels = 0;
+						analyser.smoothingTimeConstant = 0.4;
+						audioSource.connect(analyser);
+						const volumes = new Uint8Array(analyser.frequencyBinCount);
+						volumeCallback = () => {
+						  analyser.getByteFrequencyData(volumes);
+						  let volumeSum = 0;
+						  for(const volume of volumes)
+						    volumeSum += volume;
+						  const averageVolume = volumeSum / volumes.length;
+						  console.log(averageVolume)
+						  $('.follower').css({'height':averageVolume+'px'})
+						};
+						} catch(e) {
+						console.error('Failed to initialize volume visualizer, simulating instead...', e);
+						// Simulation
+						//TODO remove in production!
+						let lastVolume = 50;
+						volumeCallback = () => {
+						  const volume = Math.min(Math.max(Math.random() * 100, 0.8 * lastVolume), 1.2 * lastVolume);
+      					console.log(volume)
+						  lastVolume = volume;
+						};
+						}
+      volumeInterval = setInterval(volumeCallback, 100);
+					})();
+ 		});
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0
+		}
+		body,html{
+			touch-action: none;
+			width: 100vw;
+			height: 100%;
+		}
+		.follower{
+			background-color: black;
+			width: 100vw;
+			height: 100px;
+			position: fixed;
+			bottom:0;
+			left: 0;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="follower"></div>
+</body>
+</html>

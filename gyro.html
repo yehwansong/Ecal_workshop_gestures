@@ -1,0 +1,58 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            document.getElementById("overlay").onclick = function(e) {
+                document.getElementById("overlay").classList.add("hidden");
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    DeviceOrientationEvent.requestPermission().then((state) => {
+                        if (state === 'granted') {
+                           window.addEventListener("deviceorientation", (event) => {
+                             console.log('alpha:' + event.alpha)
+                             console.log('gamma:' + event.gamma)
+                             console.log('beta:' + event.beta)
+                           }, true);
+                        } else {
+                            document.getElementById("box").innerHTML = "access to device gyroscope denied";
+                        }
+                        })
+                    .catch(console.error);
+                } else {
+                    window.addEventListener('deviceorientation', handleOrientation);
+                }
+            };
+
+        });
+
+    </script>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0x
+        }
+        .follower{
+            background-color: black;
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            transition: 1s ease-out
+
+        }
+    </style>
+</head>
+<body>
+    <div class="follower"></div>
+    <div id="box" lang="en"></div>
+    <div id="overlay">
+        <div id="text">open this page on your phone <br>and click here to give access <br>to device gyroscope</div>
+    </div>
+</body>
+</html>
